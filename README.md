@@ -155,3 +155,11 @@ class CreateNewArticleCommand implements ShouldQueue, ShouldAwaitResponse
     }
 }
 ```
+
+## Changelog
+
+Please see the [changelog](CHANGELOG.md).
+
+## License
+
+Laravel Async Await Bus is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

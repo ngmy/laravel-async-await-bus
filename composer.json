@@ -1,0 +1,85 @@
+{
+    "name": "ngmy/laravel-async-await-bus",
+    "description": "A Laravel bus decorator that allows to await asynchronous command responses.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "bus",
+        "command bus",
+        "query bus",
+        "cqrs"
+    ],
+    "authors": [
+        {
+            "name": "Yuta Nagamiya",
+            "email": "y.nagamiya@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/ngmy/laravel-async-await-bus",
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^9.0 || ^10.0",
+        "ngmy/laravel-job-response": "^0.5"
+    },
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.8",
+        "ergebnis/composer-normalize": "^2.31",
+        "nunomaduro/larastan": "^2.6",
+        "orchestra/testbench": "^7.0 || ^8.0",
+        "phpstan/extension-installer": "^1.3"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Ngmy\\LaravelAsyncAwaitBus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ngmy\\LaravelAsyncAwaitBus\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true,
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "bamarni-bin": {
+            "bin-links": false,
+            "forward-command": true,
+            "target-directory": "vendor-bin"
+        },
+        "laravel": {
+            "providers": [
+                "Ngmy\\LaravelAsyncAwaitBus\\ServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php vendor/bin/testbench package:discover --ansi"
+        ],
+        "fmt": [
+            "@php vendor-bin/php-cs-fixer/vendor/bin/php-cs-fixer fix --allow-risky=yes"
+        ],
+        "lint": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php vendor/bin/phpstan clear-result-cache || exit $?",
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php vendor/bin/phpunit --no-coverage"
+        ],
+        "test-coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "@php vendor/bin/phpunit"
+        ]
+    }
+}

@@ -98,7 +98,7 @@ class Dispatcher implements DispatcherContract
             $command->prepareResponse();
         }
 
-        if ($forceNotAwait || (!$forceAwait && !$this->shouldAwaitResponse($command))) {
+        if ($forceNotAwait || (!$forceAwait && !$this->shouldAwaitResponse($command)) || !$this->canRespond($command)) {
             return $dispatcher();
         }
 
@@ -112,12 +112,23 @@ class Dispatcher implements DispatcherContract
         return $command instanceof ShouldQueue && $command instanceof ShouldAwaitResponse;
     }
 
+    private function canRespond(object $command): bool
+    {
+        return method_exists($command, 'getResponseIdent') || isset($command->responseIdent);
+    }
+
     private function awaitResponse(object $command): mixed
     {
-        \assert(method_exists($command, 'getResponseIdent'));
+        if (method_exists($command, 'getResponseIdent')) {
+            $responseIdent = $command->getResponseIdent();
+        } else {
+            \assert(isset($command->responseIdent));
+            $responseIdent = $command->responseIdent;
+        }
+
         $response = $this->transport
             ->throwExceptionOnFailure(true)
-            ->awaitResponse($command->getResponseIdent(), $command->timeout ?? 60)
+            ->awaitResponse($responseIdent, $command->timeout ?? 60)
         ;
         \assert($response instanceof Response);
 

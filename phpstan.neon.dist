@@ -9,5 +9,6 @@ parameters:
   bootstrapFiles:
     - vendor-bin/php-cs-fixer/vendor/autoload.php
   treatPhpDocTypesAsCertain: false
+  reportUnmatchedIgnoredErrors: false
 
 # vim: set ft=yaml:

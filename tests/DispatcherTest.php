@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Bus;
 use Ngmy\LaravelAsyncAwaitBus\Dispatcher;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncAwaitCommand;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncAwaitCommandHandler;
+use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand;
+use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommandHandler;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncAwaitWithoutRespondableTraitCommand;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncAwaitWithoutRespondableTraitCommandHandler;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestAsyncCommand;
@@ -19,8 +21,6 @@ use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestCommand;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestCommandHandler;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestDispatchAsyncAwaitCommandFromHandlerAsyncAwaitCommand;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestDispatchAsyncAwaitCommandFromHandlerAsyncAwaitCommandHandler;
-use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestNonRespondableAsyncAwaitCommand;
-use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestNonRespondableAsyncAwaitCommandHandler;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestSelfHandlingAsyncAwaitCommand;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestSelfHandlingAsyncCommand;
 use Ngmy\LaravelAsyncAwaitBus\Tests\Stubs\TestSelfHandlingCommand;
@@ -68,12 +68,12 @@ final class DispatcherTest extends TestCase
                 new TestAsyncAwaitWithoutRespondableTraitCommand(),
                 'res',
             ],
-            'non-respondable async/await command' => [
+            'async/await without respondable trait and responseIdent property command' => [
                 [
-                    TestNonRespondableAsyncAwaitCommand::class => TestNonRespondableAsyncAwaitCommandHandler::class,
+                    TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand::class => TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommandHandler::class,
                 ],
-                new TestNonRespondableAsyncAwaitCommand(),
-                0,
+                new TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand(),
+                'res',
             ],
             'self-handling command' => [
                 [],
@@ -127,12 +127,12 @@ final class DispatcherTest extends TestCase
                 new TestAsyncAwaitWithoutRespondableTraitCommand(),
                 'res',
             ],
-            'non-respondable async/await command' => [
+            'async/await without respondable trait and responseIdent property command' => [
                 [
-                    TestNonRespondableAsyncAwaitCommand::class => TestNonRespondableAsyncAwaitCommandHandler::class,
+                    TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand::class => TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommandHandler::class,
                 ],
-                new TestNonRespondableAsyncAwaitCommand(),
-                0,
+                new TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand(),
+                'res',
             ],
             'self-handling command' => [
                 [],
@@ -186,11 +186,11 @@ final class DispatcherTest extends TestCase
                 new TestAsyncAwaitWithoutRespondableTraitCommand(),
                 'retval',
             ],
-            'non-respondable async/await command' => [
+            'async/await without respondable trait and responseIdent property command' => [
                 [
-                    TestNonRespondableAsyncAwaitCommand::class => TestNonRespondableAsyncAwaitCommandHandler::class,
+                    TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand::class => TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommandHandler::class,
                 ],
-                new TestNonRespondableAsyncAwaitCommand(),
+                new TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand(),
                 'retval',
             ],
             'self-handling command' => [
@@ -245,12 +245,12 @@ final class DispatcherTest extends TestCase
                 new TestAsyncAwaitWithoutRespondableTraitCommand(),
                 'res',
             ],
-            'non-respondable async/await command' => [
+            'async/await without respondable trait and responseIdent property command' => [
                 [
-                    TestNonRespondableAsyncAwaitCommand::class => TestNonRespondableAsyncAwaitCommandHandler::class,
+                    TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand::class => TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommandHandler::class,
                 ],
-                new TestNonRespondableAsyncAwaitCommand(),
-                0,
+                new TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand(),
+                'res',
             ],
             'self-handling command' => [
                 [],
@@ -304,12 +304,12 @@ final class DispatcherTest extends TestCase
                 new TestAsyncAwaitWithoutRespondableTraitCommand(),
                 'res',
             ],
-            'non-respondable async/await command' => [
+            'async/await without respondable trait and responseIdent property command' => [
                 [
-                    TestNonRespondableAsyncAwaitCommand::class => TestNonRespondableAsyncAwaitCommandHandler::class,
+                    TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand::class => TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommandHandler::class,
                 ],
-                new TestNonRespondableAsyncAwaitCommand(),
-                0,
+                new TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand(),
+                'res',
             ],
             'self-handling command' => [
                 [],

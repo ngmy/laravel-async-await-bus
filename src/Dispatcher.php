@@ -8,6 +8,7 @@ use Illuminate\Bus\Dispatcher as DispatcherDecoratee;
 use Illuminate\Contracts\Bus\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Ngmy\LaravelAsyncAwaitBus\Contracts\ShouldAwaitResponse;
+use Williamjulianvicary\LaravelJobResponse\Facades\LaravelJobResponse;
 use Williamjulianvicary\LaravelJobResponse\Response;
 use Williamjulianvicary\LaravelJobResponse\Transport\TransportContract;
 
@@ -96,9 +97,12 @@ class Dispatcher implements DispatcherContract
 
         if (method_exists($command, 'prepareResponse')) {
             $command->prepareResponse();
+        } elseif (!isset($command->responseIdent)) {
+            // @phpstan-ignore-next-line
+            $command->responseIdent = LaravelJobResponse::generateIdent(\get_class($command));
         }
 
-        if ($forceNotAwait || (!$forceAwait && !$this->shouldAwaitResponse($command)) || !$this->canRespond($command)) {
+        if ($forceNotAwait || (!$forceAwait && !$this->shouldAwaitResponse($command))) {
             return $dispatcher();
         }
 
@@ -110,11 +114,6 @@ class Dispatcher implements DispatcherContract
     private function shouldAwaitResponse(object $command): bool
     {
         return $command instanceof ShouldQueue && $command instanceof ShouldAwaitResponse;
-    }
-
-    private function canRespond(object $command): bool
-    {
-        return method_exists($command, 'getResponseIdent') || isset($command->responseIdent);
     }
 
     private function awaitResponse(object $command): mixed

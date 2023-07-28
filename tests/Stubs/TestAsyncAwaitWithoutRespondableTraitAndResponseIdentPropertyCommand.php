@@ -8,7 +8,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Ngmy\LaravelAsyncAwaitBus\Contracts\ShouldAwaitResponse;
 
-class TestNonRespondableAsyncAwaitCommand implements ShouldQueue, ShouldAwaitResponse
+#[\AllowDynamicProperties]
+class TestAsyncAwaitWithoutRespondableTraitAndResponseIdentPropertyCommand implements ShouldQueue, ShouldAwaitResponse
 {
     use Queueable;
 }
